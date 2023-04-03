@@ -7,4 +7,5 @@ import com.example.fightbet.model.User;
 
 public interface CartRepository  extends MongoRepository<Cart, String>{
 	Cart findByUser(User user);
+	Boolean existsByUser(User user);
 }

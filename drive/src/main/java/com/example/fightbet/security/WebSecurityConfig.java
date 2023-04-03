@@ -21,6 +21,8 @@ import com.example.fightbet.security.jwt.AuthEntryPointJwt;
 import com.example.fightbet.security.jwt.AuthTokenFilter;
 import com.example.fightbet.security.service.UserDetailsServiceImpl;
 
+
+
 @Configuration
 //@EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -87,12 +89,11 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeHttpRequests(auth -> auth
-        		.requestMatchers("/api/auth/signin").permitAll()
-        		.requestMatchers("/api/auth/**").permitAll()
-        		.requestMatchers("/api/test/**").permitAll()
-        		.anyRequest().authenticated()
-        );
+        .authorizeRequests().requestMatchers("/api/auth/**").permitAll()
+        .requestMatchers("/api/test/**").permitAll()
+        .requestMatchers("/api/package/**").permitAll()
+        .requestMatchers("/api/cart/**").permitAll()
+        .anyRequest().authenticated();
     
     http.authenticationProvider(authenticationProvider());
 

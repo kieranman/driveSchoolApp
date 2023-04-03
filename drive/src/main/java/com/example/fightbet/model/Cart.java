@@ -1,5 +1,6 @@
 package com.example.fightbet.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -12,11 +13,11 @@ public class Cart {
 	
 	private User user;
 	
-	private List<DrivingPackage> drivingPackage;
+	private ArrayList<DrivingPackage> drivingPackage;
 
 	
 	
-	public Cart(User user, List<DrivingPackage> drivingPackage) {
+	public Cart(User user, ArrayList<DrivingPackage> drivingPackage) {
 		this.user = user;
 		this.drivingPackage = drivingPackage;
 	}
@@ -37,11 +38,11 @@ public class Cart {
 		this.user = user;
 	}
 
-	public List<DrivingPackage> getDrivingPackage() {
+	public ArrayList<DrivingPackage> getDrivingPackage() {
 		return drivingPackage;
 	}
 
-	public void setDrivingPackage(List<DrivingPackage> drivingPackage) {
+	public void setDrivingPackage(ArrayList<DrivingPackage> drivingPackage) {
 		this.drivingPackage = drivingPackage;
 	}
 	

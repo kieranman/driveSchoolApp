@@ -53,7 +53,7 @@ public class DrivingPackageService {
 	public ResponseEntity<DrivingPackage> updatePackage(String id,PackageDetails packageDetails){
 		DrivingPackage drivingPackage = new DrivingPackage();
 		drivingPackage = drivingPackageRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Package does not exist with id:"+id));
+				.orElseThrow(() -> new ResourceNotFoundException("Package does not exist with id:"+id)); 
 		drivingPackage.setPackageName(packageDetails.getPackageName());
 		drivingPackage.setDescription(packageDetails.getDescription());
 		drivingPackage.setPrice(packageDetails.getPrice());

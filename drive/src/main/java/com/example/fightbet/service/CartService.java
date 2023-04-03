@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.fightbet.exception.ResourceNotFoundException;
 import com.example.fightbet.model.Cart;
 import com.example.fightbet.model.DrivingPackage;
 import com.example.fightbet.model.User;
@@ -27,12 +28,31 @@ public class CartService {
 	@Autowired
 	private DrivingPackageRepository drivingPackageRepository;
 	
-	public ResponseEntity<?> saveCartItem(User user,DrivingPackage drivingPackage){
-		ArrayList<DrivingPackage> cartItem = new ArrayList<DrivingPackage>();
-		cartItem.add(drivingPackage);
-		Cart cart = new Cart(user,cartItem);
-		cartRepository.save(cart);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public ResponseEntity<?> saveCartItem(String username,String packageName){
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFoundException("User does not exist with username:"+username));
+		
+		DrivingPackage drivingPackage = drivingPackageRepository.findByPackageName(packageName);
+
+		
+		Cart cart = cartRepository.findByUser(user);
+
+		if(cartRepository.existsByUser(user)) {
+			ArrayList<DrivingPackage> cartItems = cart.getDrivingPackage();
+			cartItems.add(drivingPackage);
+			cart.setDrivingPackage(cartItems);
+			cartRepository.save(cart);
+			return ResponseEntity.ok(cart);
+		}
+		else {
+			ArrayList<DrivingPackage> cartItems = new ArrayList<DrivingPackage>();
+			cartItems.add(drivingPackage);
+			Cart newCart = new Cart(user, cartItems);
+			cartRepository.save(newCart);
+			return ResponseEntity.ok(newCart);
+		}
+		
+		
 		
 	}
 	

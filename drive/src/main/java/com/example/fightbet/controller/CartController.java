@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fightbet.model.DrivingPackage;
 import com.example.fightbet.model.User;
+import com.example.fightbet.payload.request.AddCartDetails;
 import com.example.fightbet.service.CartService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/package")
+@RequestMapping("/api/cart")
 public class CartController {
 
 	@Autowired
 	private CartService cartService;
 	
 	@PostMapping
-	public ResponseEntity<?> saveCartItem(@RequestBody User user, DrivingPackage drivingPackage){
-		
-		return null;
+	public ResponseEntity<?> saveCartItem(@RequestBody AddCartDetails addCartDetails){
+		return cartService.saveCartItem(addCartDetails.getUsername(), addCartDetails.getPackageName());
 		
 	}
 }

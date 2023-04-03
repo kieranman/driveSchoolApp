@@ -11,5 +11,4 @@ public interface DrivingPackageRepository extends MongoRepository<DrivingPackage
 	DrivingPackage findByPackageName(String packageName);
 
 	
-	
 }
